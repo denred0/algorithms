@@ -34,10 +34,11 @@ def quicksort(my_list):
     if len(my_list) < 2:
         return my_list
 
-    pivot = my_list[0]  # опроным элементом выбираем первый элемент
+    pivot = my_list[len(my_list) // 2]  # опроным элементом выбираем средний элемент
+    my_list.pop(len(my_list) // 2)
 
-    less = [i for i in my_list[1:] if i <= pivot]
-    greater = [i for i in my_list[1:] if i > pivot]
+    less = [i for i in my_list if i <= pivot]
+    greater = [i for i in my_list if i > pivot]
 
     return quicksort(less) + [pivot] + quicksort(greater)
 

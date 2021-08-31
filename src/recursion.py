@@ -1,3 +1,6 @@
+import time
+
+
 # простейшая рекурсия
 def fact(x):
     if x == 1:
@@ -47,6 +50,7 @@ def binary_search(my_list, search_value):
     else:
         return binary_search(my_list[:mid - 1], search_value)
 
+
 # вычисление размера максимального квадрата, на который можно разделить поле размером x на y
 def calc_max_square(x, y):
     if x == 0 or y == 0:
@@ -65,6 +69,57 @@ def calc_max_square(x, y):
             return calc_max_square(x, y - parts * x)
 
 
+# Python3 code to Check for
+# balanced parentheses in an expression
+open_list = ["[", "{", "("]
+close_list = ["]", "}", ")"]
+
+
+# Function to check parentheses
+def find_right_brackets_for1(myStr):
+    stack = []
+    for i in myStr:
+        if i in open_list:
+            stack.append(i)
+        elif i in close_list:
+            pos = close_list.index(i)
+            if ((len(stack) > 0) and
+                    (open_list[pos] == stack[len(stack) - 1])):
+                stack.pop()
+            else:
+                return "Unbalanced"
+    if len(stack) == 0:
+        return "Balanced"
+    else:
+        return "Unbalanced"
+
+
+def find_right_brackets_for2(stroke):
+    stroke = stroke.replace(',', '')
+    l = []
+    for s in stroke:
+        if s in ['(', ')']:
+            l.append(s)
+
+    if len(l) == 0:
+        return 0
+
+    res = ''
+    counter = 0
+    itog = 0
+    for i in range(len(l)):
+        if l[i] == '(':
+            counter += 1
+            res += '('
+        else:
+            if counter > 0:
+                counter -= 1
+                res += ')'
+                itog += 1
+
+    return itog, res
+
+
 if __name__ == '__main__':
     # print(fact(3))
 
@@ -76,4 +131,14 @@ if __name__ == '__main__':
 
     # binary_search([1, 3], 3)
 
-    calc_max_square(1680, 640)
+    # calc_max_square(1680, 640)
+    start_time = time.time()
+
+    s = ' ((((((((((((((())))))))))))))'
+    print(f'Initial string: {s}')
+
+    itog, res = find_right_brackets_for2(s)
+    print(f'Right brackets count: {itog}')
+    print(f'Result: {res}')
+    t = round((time.time() - start_time) * 1000, 3)
+    print("--- %s milliseconds ---" % t)
