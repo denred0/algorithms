@@ -26,7 +26,22 @@ def selectionSort(my_list):
 
     return sorted_list
 
+# Быстрая сортировка
+# базовый случай это пустой массив или массив из 1 элемента
+# выбираем опорный элемент и все значения меньше него перемещаем влево, а все значения больше вправо
+# потом применяем быструю сортировку для левой и правой части
+def quicksort(my_list):
+    if len(my_list) < 2:
+        return my_list
+
+    pivot = my_list[0]  # опроным элементом выбираем первый элемент
+
+    less = [i for i in my_list[1:] if i <= pivot]
+    greater = [i for i in my_list[1:] if i > pivot]
+
+    return quicksort(less) + [pivot] + quicksort(greater)
+
 
 if __name__ == '__main__':
-    result = selectionSort([7, 5, 89, 1, 6])
+    result = quicksort([7, 5, 89, 1, 6])
     print(result)

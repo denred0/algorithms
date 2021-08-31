@@ -6,6 +6,7 @@ def fact(x):
         return x * fact(x - 1)
 
 
+# сумма элементов через рекурсию
 def recursion_sum(my_list):
     if len(my_list) == 1:
         return my_list[0]
@@ -13,6 +14,7 @@ def recursion_sum(my_list):
         return my_list[0] + recursion_sum(my_list[1:])
 
 
+# количество элементов через рекурсию
 def recursion_counts(my_list):
     if len(my_list) == 1:
         return 1
@@ -45,6 +47,23 @@ def binary_search(my_list, search_value):
     else:
         return binary_search(my_list[:mid - 1], search_value)
 
+# вычисление размера максимального квадрата, на который можно разделить поле размером x на y
+def calc_max_square(x, y):
+    if x == 0 or y == 0:
+        return 'wrong input data'
+
+    if x % y == 0:
+        return print(y)
+    elif y % x == 0:
+        return print(x)
+    else:
+        if x > y:
+            parts = x // y
+            return calc_max_square(x - parts * y, y)
+        else:
+            parts = y // x
+            return calc_max_square(x, y - parts * x)
+
 
 if __name__ == '__main__':
     # print(fact(3))
@@ -55,4 +74,6 @@ if __name__ == '__main__':
 
     # print(recursion_max_value([9, 2, 3, 7]))
 
-    binary_search([1, 3], 3)
+    # binary_search([1, 3], 3)
+
+    calc_max_square(1680, 640)
