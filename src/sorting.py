@@ -12,7 +12,7 @@ def selectionSort(my_list):
 
     # Здесь сложность O(n) - надо выполнить операцию поиска наименьшего элемента
     # количество раз равное количеству элементов в массиве
-    while len(my_list) > 0:
+    while (my_list) > 0:
         min_value = my_list[0]
         ind = 0
 
