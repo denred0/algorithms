@@ -26,6 +26,7 @@ def selectionSort(my_list):
 
     return sorted_list
 
+
 # Быстрая сортировка
 # базовый случай это пустой массив или массив из 1 элемента
 # выбираем опорный элемент и все значения меньше него перемещаем влево, а все значения больше вправо
@@ -43,6 +44,51 @@ def quicksort(my_list):
     return quicksort(less) + [pivot] + quicksort(greater)
 
 
+# пузырьковая сортировка
+def bubble_sort(my_list):
+    for i in range(len(my_list) - 1):
+        for j in range(len(my_list) - i - 1):
+            if my_list[j] > my_list[j + 1]:
+                my_list[j], my_list[j + 1] = my_list[j + 1], my_list[j]
+
+    return my_list
+
+
+# сортировка слиянием
+def mergeSort(my_list):
+    print("Splitting ", my_list)
+    if len(my_list) > 1:
+        mid = len(my_list) // 2
+        lefthalf = my_list[:mid]
+        righthalf = my_list[mid:]
+
+        mergeSort(lefthalf)
+        mergeSort(righthalf)
+
+        i = 0
+        j = 0
+        k = 0
+        while i < len(lefthalf) and j < len(righthalf):
+            if lefthalf[i] < righthalf[j]:
+                my_list[k] = lefthalf[i]
+                i = i + 1
+            else:
+                my_list[k] = righthalf[j]
+                j = j + 1
+            k = k + 1
+
+        while i < len(lefthalf):
+            my_list[k] = lefthalf[i]
+            i = i + 1
+            k = k + 1
+
+        while j < len(righthalf):
+            my_list[k] = righthalf[j]
+            j = j + 1
+            k = k + 1
+    print("Merging ", my_list)
+
+
 if __name__ == '__main__':
-    result = quicksort([7, 5, 89, 1, 6])
+    result = mergeSort([7, 5, 89, 1, 6])
     print(result)

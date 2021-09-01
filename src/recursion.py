@@ -120,6 +120,29 @@ def find_right_brackets_for2(stroke):
     return itog, res
 
 
+def permutations(string, step=0):
+    # if we've gotten to the end, print the permutation
+
+    if step == len(string):
+        return "".join(string)
+
+    # everything to the right of step has not been swapped yet
+    for i in range(step, len(string)):
+        # copy the string (store as array)
+        string_copy = [character for character in string]
+
+        # swap the current index with the step
+        string_copy[step], string_copy[i] = string_copy[i], string_copy[step]
+
+        # recurse on the portion of the string that has not been swapped yet (now it's index will begin with step + 1)
+        return permutations(string_copy, step + 1)
+
+
+def get_all_substrings(input_string):
+    length = len(input_string)
+    return [input_string[i:j + 1] for i in range(length) for j in range(i, length)]
+
+
 if __name__ == '__main__':
     # print(fact(3))
 
@@ -132,13 +155,22 @@ if __name__ == '__main__':
     # binary_search([1, 3], 3)
 
     # calc_max_square(1680, 640)
-    start_time = time.time()
+    # start_time = time.time()
+    #
+    # s = ' ((((((((((((((())))))))))))))'
+    # print(f'Initial string: {s}')
+    #
+    # itog, res = find_right_brackets_for2(s)
+    # print(f'Right brackets count: {itog}')
+    # print(f'Result: {res}')
+    # t = round((time.time() - start_time) * 1000, 3)
+    # print("--- %s milliseconds ---" % t)
 
-    s = ' ((((((((((((((())))))))))))))'
-    print(f'Initial string: {s}')
+    print(permutations('were', 0))
+    #
+    # arr = []
+    # substr = get_all_substrings('abcde')
+    # for a in substr:
+    #
 
-    itog, res = find_right_brackets_for2(s)
-    print(f'Right brackets count: {itog}')
-    print(f'Result: {res}')
-    t = round((time.time() - start_time) * 1000, 3)
-    print("--- %s milliseconds ---" % t)
+    # print(res)
