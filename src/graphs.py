@@ -23,40 +23,42 @@ def wide_search(graph, name):
 def find_lowest_cost_node(costs, processed):
     lowest_cost = float('inf')
     lowest_cost_node = None
-    for node in costs: # бежим по словарю стоимостей
+    for node in costs:  # бежим по словарю стоимостей
         cost = costs[node]
-        if cost < lowest_cost and node not in processed: # проверяем только среди нодов, которые еще не обработали
+        if cost < lowest_cost and node not in processed:  # проверяем только среди нодов, которые еще не обработали
             lowest_cost = cost
             lowest_cost_node = node
     return lowest_cost_node
 
+
 # разматываем итоговый путь
 def get_path_back(parents, end_point):
-    if end_point not in parents: # нет в родителях
-        if end_point in parents.values(): # но есть в детях, значит это самое начало
+    if end_point not in parents:  # нет в родителях
+        if end_point in parents.values():  # но есть в детях, значит это самое начало
             return str(get_path_back(parents, '')) + str(end_point)
         else:
             return ''
     else:
-        new_end_point = parents[end_point] # новый родитель
-        return str(get_path_back(parents, new_end_point)) + ' ' + str(end_point) # предыдущего родителя помещаем назад т.к. мы идем в обратном направлении
+        new_end_point = parents[end_point]  # новый родитель
+        return str(get_path_back(parents, new_end_point)) + ' ' + str(
+            end_point)  # предыдущего родителя помещаем назад т.к. мы идем в обратном направлении
 
 
 def alg_dekstry(graph, costs, parents):
     processed = []
-    node = find_lowest_cost_node(costs, processed) # ищем необработанный нод с наименьшим весом
+    node = find_lowest_cost_node(costs, processed)  # ищем необработанный нод с наименьшим весом
     while node is not None:
-        cost = costs[node] # вес нода
-        neighbors = graph[node] # соседи нода
+        cost = costs[node]  # вес нода
+        neighbors = graph[node]  # соседи нода
 
         for n in neighbors.keys():
-            new_cost = cost + neighbors[n] # считаем сколько стоит добраться от этого нода до его соседей
+            new_cost = cost + neighbors[n]  # считаем сколько стоит добраться от этого нода до его соседей
 
-            if costs[n] > new_cost: # если мы нашли более дешевый путь, то обновим стоимость и родителя
+            if costs[n] > new_cost:  # если мы нашли более дешевый путь, то обновим стоимость и родителя
                 costs[n] = new_cost
                 parents[n] = node
 
-        processed.append(node) # помечаем, что обработали нод
+        processed.append(node)  # помечаем, что обработали нод
         node = find_lowest_cost_node(costs, processed)
 
     # итоговый лучший путь
